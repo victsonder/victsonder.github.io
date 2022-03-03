@@ -551,7 +551,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-01
+                    2022-03-03
                 </div>
                 
 
@@ -572,11 +572,140 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <pre><code>本目标是设计一辆树莓派和Arduino结合的智能小车，Arduino作为下位机来控制四个电机前进，在遇到前方有箭头的情况下停车，然后进行转弯的功能，树莓派作为上位机起到判别前方箭头的颜色和指向，并且下达指令的功能。整个过程中需要树莓派和Arduino互相收发信息并且进行后续动作。
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<h2 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h2><pre class=" language-bash"><code class="language-bash">    树莓派机器人有两个控制板块，arduino作为下位机，通过超声波模块检测前方一定距离内是否有箭头标志阻挡前进的路线，通过电机驱动模块PWM方式控制左右两侧的轮子（左边两个轮子相同速度信号，右边两个轮子相同速度信号），通过左右车轮的速度差来达到转弯的效果。
+
+    树莓派作为上位机，通过摄像头判别交通箭头的信号。判别箭头是通过判断识别到的轮廓（箭头轮廓）的重心和最小外接矩形的重心两者的位置，箭头的朝向跟箭头重心的位置直接关联，所以可以根据两个重心的位置关系来判断箭头是左箭头还是右箭头。关于颜色的识别，将RGB颜色转化位hsv空间的颜色，判断图片中的颜色是否在绿色或者红色的色域中，在色域中则说明是对应的颜色。
+</code></pre>
+<h2 id="制作方案"><a href="#制作方案" class="headerlink" title="制作方案"></a>制作方案</h2><h3 id="环境的安装"><a href="#环境的安装" class="headerlink" title="环境的安装"></a>环境的安装</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+</code></pre>
+<h3 id="硬件的连接"><a href="#硬件的连接" class="headerlink" title="硬件的连接"></a>硬件的连接</h3><pre class=" language-bash"><code class="language-bash">锂电池：给arduino和电机驱动模块供电；
+降压模块：用于降压保护arduino和电机，并可以稳定电压；
+电机驱动模块：给电机供电，左侧两个电机的正极同时连接电机驱动模块上的一个out3，负极连接到out4，右侧连接out1、out2；
+超声波模块：直接接在arduino板块上，由arduino供电并且arduino读取返回的信号值。
+</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">硬件连接图</a></p>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><pre class=" language-bash"><code class="language-bash">上位机
+<span class="token comment" spellcheck="true"># -*- coding: UTF-8 -*-</span>
+<span class="token string">''</span><span class="token string">'                 首先由树莓派发起通讯，告知arduino可以开始运动了
+arduino受到树莓派的信号开始运动，进入loop循环
+遇到障碍物停车，发送信号，等待树莓派的指示，不进入loop   树莓派拍照，识别，传送信号给arduino
+arduino收到信号，开始运动                树莓派循环等待信号
+'</span><span class="token string">''</span>
+
+<span class="token function">import</span> <span class="token function">time</span>
+<span class="token function">import</span> numpy as np
+<span class="token function">import</span> numpy
+<span class="token function">import</span> cv2
+<span class="token function">import</span> serial
+ser <span class="token operator">=</span> serial.Serial<span class="token punctuation">(</span><span class="token string">'/dev/ttyACM0'</span>, 9600,timeout<span class="token operator">=</span>1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">#open named port at 9600,1s timeot</span>
+font<span class="token operator">=</span> cv2.FONT_HERSHEY_SIMPLEX
+lower_red1<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>0,128,40<span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 浅红色阈值下界</span>
+higher_red1<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>5,255,255<span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 浅红色阈值上界</span>
+lower_red2<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>156,128,40<span class="token punctuation">]</span><span class="token punctuation">)</span>  
+higher_red2<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>180,255,255<span class="token punctuation">]</span><span class="token punctuation">)</span>  
+lower_green<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>35,100,46<span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 绿色阈值下界</span>
+higher_green<span class="token operator">=</span>np.array<span class="token punctuation">(</span><span class="token punctuation">[</span>77,255,255<span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 绿色阈值上界</span>
+
+def cal<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span>:
+    M <span class="token operator">=</span> cv2.moments<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 计算第一条轮廓的各阶矩,字典形式</span>
+    center_x <span class="token operator">=</span> int<span class="token punctuation">(</span>M<span class="token punctuation">[</span><span class="token string">"m10"</span><span class="token punctuation">]</span> //<span class="token punctuation">(</span>M<span class="token punctuation">[</span><span class="token string">"m00"</span><span class="token punctuation">]</span>+1e-40<span class="token punctuation">))</span>
+    center_y <span class="token operator">=</span> int<span class="token punctuation">(</span>M<span class="token punctuation">[</span><span class="token string">"m01"</span><span class="token punctuation">]</span> //<span class="token punctuation">(</span>M<span class="token punctuation">[</span><span class="token string">"m00"</span><span class="token punctuation">]</span>+1e-40<span class="token punctuation">))</span>
+    <span class="token keyword">return</span> M,center_x,center_y
+def command<span class="token punctuation">(</span>text,color,signal<span class="token punctuation">)</span>:
+    ser.write<span class="token punctuation">(</span>signal.encode<span class="token punctuation">(</span><span class="token punctuation">))</span>
+    time.sleep<span class="token punctuation">(</span>1<span class="token punctuation">)</span>
+    response<span class="token operator">=</span>ser.readall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">#time.sleep(0.1);</span>
+    print response<span class="token comment" spellcheck="true"># L R 1 2</span>
+    cv2.putText<span class="token punctuation">(</span>frame, text, <span class="token punctuation">(</span>x, y - 5<span class="token punctuation">)</span>, font, 1.0, color, 2<span class="token punctuation">)</span>
+    print text<span class="token comment" spellcheck="true">#LGA RGA LRA RRA</span>
+    FLAG<span class="token operator">=</span>1
+    ser.flush<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+def draw<span class="token punctuation">(</span>cnt,<span class="token punctuation">(</span>x,y,w,h<span class="token punctuation">)</span>,rectcolor,edgecentercolor<span class="token punctuation">)</span>:
+    cv2.rectangle<span class="token punctuation">(</span>frame, <span class="token punctuation">(</span>x, y<span class="token punctuation">)</span>, <span class="token punctuation">(</span>x + w, y + h<span class="token punctuation">)</span>, rectcolor, 2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># draw</span>
+    cv2.circle<span class="token punctuation">(</span>frame, <span class="token punctuation">(</span>x + w // 2, y + h // 2<span class="token punctuation">)</span>, 7, edgecentercolor, -1<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">#the center of circle</span>
+    cv2.drawContours<span class="token punctuation">(</span>frame, cnt, -1, edgecentercolor, 2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># draw edge</span>
+    
+
+<span class="token comment" spellcheck="true">#ser.write('start')#告诉arduino可以开始运动，进入loop循环开车</span>
+<span class="token comment" spellcheck="true">#response = ser.readall();#read a string from port</span>
+<span class="token comment" spellcheck="true">#print response # wheels on</span>
+
+while<span class="token punctuation">(</span>1<span class="token punctuation">)</span>:<span class="token comment" spellcheck="true"># 等待Ready信号</span>
+    print <span class="token string">"wait"</span>
+    FLAG<span class="token operator">=</span>0 <span class="token comment" spellcheck="true">#得到命令flag=1,若是没有得到命令flag=0,继续进行摄像头的工作;每次小车停止后flag信息归零</span>
+    ser.write<span class="token punctuation">(</span><span class="token string">'s'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">#发起通信，等待小车遇到障碍物</span>
+    <span class="token comment" spellcheck="true">#time.sleep(0.1);</span>
+    response <span class="token operator">=</span> ser.readall<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">#读取遇到障碍物的消息</span>
+    <span class="token comment" spellcheck="true">#time.sleep(0.1);</span>
+    print response<span class="token comment" spellcheck="true">#Ready</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>response<span class="token operator">==</span><span class="token string">'Ready'</span><span class="token punctuation">)</span>:
+        cap<span class="token operator">=</span>cv2.VideoCapture<span class="token punctuation">(</span>0<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#打开摄像头</span>
+        if<span class="token punctuation">(</span>cap.isOpened<span class="token punctuation">(</span><span class="token punctuation">))</span>:
+            while<span class="token punctuation">(</span>flag<span class="token operator">!=</span>1<span class="token punctuation">)</span>:<span class="token comment" spellcheck="true">#没有得到命令就继续拍照识别</span>
+                <span class="token comment" spellcheck="true">#print ' go'</span>
+                ret,frame<span class="token operator">=</span>cap.read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#按帧读取，这是读取一帧</span>
+
+                img_hsv<span class="token operator">=</span>cv2.cvtColor<span class="token punctuation">(</span>frame,cv2.COLOR_BGR2HSV<span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">#cv2.imshow('img_hsv', img_hsv)</span>
+        img_hsv<span class="token operator">=</span>cv2.equalizeHist<span class="token punctuation">(</span>img_hsv<span class="token punctuation">)</span>
+
+                mask_red1<span class="token operator">=</span>cv2.inRange<span class="token punctuation">(</span>img_hsv,lower_red1,higher_red1<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#可以认为是过滤出红色部分，获得红色的掩膜</span>
+                mask_red2<span class="token operator">=</span>cv2.inRange<span class="token punctuation">(</span>img_hsv,lower_red2,higher_red2<span class="token punctuation">)</span>
+                mask_green<span class="token operator">=</span>cv2.inRange<span class="token punctuation">(</span>img_hsv,lower_green,higher_green<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#获得绿色部分掩膜</span>
+                mask_red<span class="token operator">=</span>cv2.bitwise_or<span class="token punctuation">(</span>mask_red1,mask_red2<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 掩膜进行按位或运算</span>
+        <span class="token comment" spellcheck="true">#mask_green=cv2.equalizeHist(mask_green)</span>
+                mask_green <span class="token operator">=</span> cv2.medianBlur<span class="token punctuation">(</span>mask_green, 7<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 中值滤波</span>
+                mask_red <span class="token operator">=</span> cv2.medianBlur<span class="token punctuation">(</span>mask_red, 7<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 中值滤波                </span>
+                
+                <span class="token comment" spellcheck="true">#mask=cv2.bitwise_or(mask_green,mask_red)  # 掩膜进行按位或运算</span>
+
+                frame1,cnts1, contours1<span class="token operator">=</span> cv2.findContours<span class="token punctuation">(</span>mask_red, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># find edge</span>
+               <span class="token comment" spellcheck="true"># cnt1= mask_red.__find_max_contour(mask_red,contours1)</span>
+                frame3,cnts3, contours3<span class="token operator">=</span> cv2.findContours<span class="token punctuation">(</span>mask_green,cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE<span class="token punctuation">)</span>
+               <span class="token comment" spellcheck="true"># cnt3= mask_green.__find_max_contour(mask_green,contours3)</span>
+                <span class="token keyword">for</span> cnt <span class="token keyword">in</span> cnts1:
+                    M,center_x,center_y<span class="token operator">=</span>cal<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span>
+                    <span class="token punctuation">(</span>x,y,w,h<span class="token punctuation">)</span><span class="token operator">=</span>cv2.boundingRect<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#该函数返回矩阵四个点</span>
+                    if<span class="token punctuation">(</span>w<span class="token operator">></span>150 and h<span class="token operator">></span>150<span class="token punctuation">)</span>:
+                        draw<span class="token punctuation">(</span>cnts1,<span class="token punctuation">(</span>x,y,w,h<span class="token punctuation">)</span>,<span class="token punctuation">(</span>240, 65, 85<span class="token punctuation">)</span>,<span class="token punctuation">(</span>0, 255, 0<span class="token punctuation">))</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">((</span>x + w / 2<span class="token punctuation">)</span> <span class="token operator">></span> center_x<span class="token punctuation">)</span>:
+                            command<span class="token punctuation">(</span><span class="token string">'LRA'</span>,<span class="token punctuation">(</span>0,0,255<span class="token punctuation">)</span>,<span class="token string">'o'</span><span class="token punctuation">)</span>
+                            <span class="token comment" spellcheck="true">#FLAG=1</span>
+                        else:
+                            command<span class="token punctuation">(</span><span class="token string">'RRA'</span>,<span class="token punctuation">(</span>0,0,255<span class="token punctuation">)</span>,<span class="token string">'p'</span><span class="token punctuation">)</span>
+                            <span class="token comment" spellcheck="true">#FLAG=1</span>
+
+                <span class="token keyword">for</span> cnt <span class="token keyword">in</span> cnts3:
+                    M,center_x,center_y<span class="token operator">=</span>cal<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span>
+                    <span class="token punctuation">(</span>x, y, w, h<span class="token punctuation">)</span> <span class="token operator">=</span> cv2.boundingRect<span class="token punctuation">(</span>cnt<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 该函数返回矩阵四个点</span>
+                    if<span class="token punctuation">(</span>w<span class="token operator">></span>150 and h<span class="token operator">></span>150<span class="token punctuation">)</span>:
+                        draw<span class="token punctuation">(</span>cnts3,<span class="token punctuation">(</span>x,y,w,h<span class="token punctuation">)</span>,<span class="token punctuation">(</span>0, 255, 255<span class="token punctuation">)</span>,<span class="token punctuation">(</span>0, 255, 0<span class="token punctuation">))</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">((</span>x + w / 2<span class="token punctuation">)</span> <span class="token operator">></span> center_x<span class="token punctuation">)</span>:
+                            command<span class="token punctuation">(</span><span class="token string">'LGA'</span>,<span class="token punctuation">(</span>0,255,0<span class="token punctuation">)</span>,<span class="token string">'m'</span><span class="token punctuation">)</span>
+                            <span class="token comment" spellcheck="true">#FLAG=1</span>
+                        else:
+                            command<span class="token punctuation">(</span><span class="token string">'RGA'</span>,<span class="token punctuation">(</span>0,255,0<span class="token punctuation">)</span>,<span class="token string">'n'</span><span class="token punctuation">)</span>
+                            <span class="token comment" spellcheck="true">#FLAG=1</span>
+                
+                cv2.imshow<span class="token punctuation">(</span><span class="token string">'frame'</span>,frame<span class="token punctuation">)</span>
+                cv2.waitKey<span class="token punctuation">(</span>150<span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">#ser.flush()</span>
+                <span class="token comment" spellcheck="true">#if c==27:</span>
+                <span class="token comment" spellcheck="true">#    break</span>
+                cv2.destroyAllWindows<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+                <span class="token keyword">if</span> FLAG<span class="token operator">==</span>1:
+                    print <span class="token string">"got instruction"</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span> <span class="token keyword">:</span>
+                    print <span class="token string">"did not get instruction"</span>
+
+            cap.release<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
@@ -611,7 +740,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://victsonder.github.io/2022/03/01/hello-world/">http://victsonder.github.io/2022/03/01/hello-world/</a>
+                    <a href="http://victsonder.github.io/2022/03/03/%E5%9F%BA%E4%BA%8E%20Raspberry%20Pi+OpenCV+Arduino%20%E7%9A%84%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6/">http://victsonder.github.io/2022/03/03/%E5%9F%BA%E4%BA%8E%20Raspberry%20Pi+OpenCV+Arduino%20%E7%9A%84%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -816,9 +945,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/03/%E5%9F%BA%E4%BA%8E%20Raspberry%20Pi+OpenCV+Arduino%20%E7%9A%84%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6/">
                     <div class="card-image">
@@ -836,9 +966,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -847,6 +977,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -854,7 +985,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/03/01/hello-world/">
@@ -884,7 +1015,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
