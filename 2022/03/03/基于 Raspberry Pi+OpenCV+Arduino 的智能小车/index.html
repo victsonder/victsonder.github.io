@@ -537,12 +537,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">学习</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -572,7 +585,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本项目基于上位机Raspberry Pi和下位机Arduino相互通信的环境，利用SSH远程登录，结合摄像头OpenCV和<br>Python进行图像的传输并判别交通信号的箭头，小车识别到绿色箭头朝箭头指示方向转弯，识别到红色箭头则<br>停在原地，并计算左右两侧的 PWM 值实现直线行驶，利用超声波模块检测小车前方障碍物距离实现避障。<br>    <img src="/images/cv2.jpg"></p>
+                <p>本项目基于上位机Raspberry Pi和下位机Arduino相互通信的环境，利用SSH远程登录，结合摄像头OpenCV和<br>Python进行图像的传输并判别交通信号的箭头，小车识别到绿色箭头朝箭头指示方向转弯，识别到红色箭头则<br>停在原地，并计算左右两侧的 PWM 值实现直线行驶，利用超声波模块检测小车前方障碍物距离实现避障。<br><img src="/images/cv2.jpg"></p>
 <h2 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h2><pre class=" language-bash"><code class="language-bash">    本项目有两个控制板块，树莓派作为上位机，Arduino作为下位机，超声波模块用于检测前方一定距离内是否有箭头标志阻挡前进的路线，电机驱动模块以PWM方式控制左右两侧的轮子（左边两个轮子相同速度信号，右边两个轮子相同速度信号），通过左右车轮的速度差来达到转弯的效果。
 
     树莓派作为上位机，通过摄像头判别交通箭头的信号。判别箭头是通过判断识别到的轮廓（箭头轮廓）的重心和最小外接矩形的重心两者的位置，箭头的朝向跟箭头重心的位置直接关联，所以可以根据两个重心的位置关系来判断箭头是左箭头还是右箭头。关于颜色的识别，将RGB颜色转化位HSV空间的颜色，判断图片中的颜色是否在绿色或者红色的色域中，在色域中则说明是对应的颜色。
@@ -907,7 +920,11 @@ void loop<span class="token punctuation">(</span><span class="token punctuation"
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">学习</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1137,13 +1154,25 @@ void loop<span class="token punctuation">(</span><span class="token punctuation"
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            victsonder
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">学习</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
