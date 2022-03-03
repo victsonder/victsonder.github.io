@@ -628,7 +628,7 @@ void loop<span class="token punctuation">(</span><span class="token punctuation"
 <p>So, <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33759946/article/details/90295377?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_aa&utm_relevant_index=5">为什么</a>要采用HSV空间的色域？</p>
 <p><a target="_blank" rel="noopener" href="https://math.hws.edu/graphicsbook/demos/c2/rgb-hsv.html">RGB&#x2F;HSV Color Demo</a></p>
 <p>注意：在HSV中，V受光照的影响最大<br>处理方式：对V进行直方图均衡化处理，使各个亮度值的点数相近。</p>
-<p>Step1. 获得红色掩膜（进行按位或运算1|1&#x3D;1，1|0&#x3D;0，0|1&#x3D;0，0|0&#x3D;0）<br>       获得绿色掩膜<br>Step2. 中值滤波处理（平滑图像，滤去噪声,保护图像的边缘）<br>Step3. 寻找轮廓并计算重心 【cv2.findContours()】<br>       比较轮廓重心(center_x, center_y)和外接矩形的重心(x+w&#x2F;&#x2F;2, y+h&#x2F;&#x2F;2),<br>        if ((x + w &#x2F;&#x2F; 2) &gt; center_x):<br>            向左转<br>        else :<br>            向右转<br>Step4. </p>
+<p>Step1. 获得红色掩膜（进行按位或运算1|1&#x3D;1，1|0&#x3D;0，0|1&#x3D;0，0|0&#x3D;0）<br>       获得绿色掩膜<br>Step2. 中值滤波处理（平滑图像，滤去噪声,保护图像的边缘）<br>Step3. 寻找轮廓并计算重心 【cv2.findContours()】<br>       比较轮廓重心(center_x, center_y)和外接矩形的重心(x+w&#x2F;&#x2F;2, y+h&#x2F;&#x2F;2),<br>        if ((x + w &#x2F;&#x2F; 2) &gt; center_x):<br>            向左转<br>        else :<br>            向右转</p>
 <h2 id="上位机代码"><a href="#上位机代码" class="headerlink" title="上位机代码"></a>上位机代码</h2><pre class=" language-bash"><code class="language-bash">上位机
 <span class="token comment" spellcheck="true"># -*- coding: UTF-8 -*-</span>
 <span class="token string">''</span><span class="token string">'首先由树莓派发起通讯，告知Arduino可以开始运动了
