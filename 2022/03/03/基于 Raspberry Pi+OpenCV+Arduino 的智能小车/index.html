@@ -591,15 +591,7 @@
     树莓派作为上位机，通过摄像头判别交通箭头的信号。判别箭头是通过判断识别到的轮廓（箭头轮廓）的重心和最小外接矩形的重心两者的位置，箭头的朝向跟箭头重心的位置直接关联，所以可以根据两个重心的位置关系来判断箭头是左箭头还是右箭头。关于颜色的识别，将RGB颜色转化位HSV空间的颜色，判断图片中的颜色是否在绿色或者红色的色域中，在色域中则说明是对应的颜色。
 </code></pre>
 <p><img src="/images/cv.png" alt="框架"></p>
-<h2 id="制作方案"><a href="#制作方案" class="headerlink" title="制作方案"></a>制作方案</h2><h3 id="环境的安装"><a href="#环境的安装" class="headerlink" title="环境的安装"></a>环境的安装</h3><p>主要涉及关于树莓派和OpenCV的安装<br><strong>·1 树莓派安装</strong>（便于可视化可以配置一台显示屏，但意义就没有了，因此获取树莓派IP后可以通过SSH远程控制树莓派）<br>    1.1 下载系统镜像（之前写过关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43451257/article/details/105060324?spm=1001.2014.3001.5502">Ubuntu16.04下Git的安装</a>）,此处使用的是Raspbian的镜像（自带桌面和一些软件）<br>    1.2 格式化SD卡，将镜像写入，完成系统的安装<br>    1.3 开启SSH<br>        首先在根目录下新建SSH文件，用于远程登录，然后就把SD卡插到树莓派上；<br>        第一次需要用网线连接树莓派和电脑，使其处于同一网段下，然后通过PuTTY配置</p>
-<pre><code>``` bash 
-
-    IP地址：raspberrypi.local 端口：22
-
-```
-    连接成功后输入登录名pi和密码raspberry,接下来简单配置并连接与电脑相同的WiFi；
-    可下载一个VNC Viewer用于连接到树莓派的桌面。
-</code></pre>
+<h2 id="制作方案"><a href="#制作方案" class="headerlink" title="制作方案"></a>制作方案</h2><h3 id="环境的安装"><a href="#环境的安装" class="headerlink" title="环境的安装"></a>环境的安装</h3><p>主要涉及关于树莓派和OpenCV的安装<br><strong>·1 树莓派安装</strong>（便于可视化可以配置一台显示屏，但意义就没有了，因此获取树莓派IP后可以通过SSH远程控制树莓派）<br>    1.1 下载系统镜像（之前写过关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43451257/article/details/105060324?spm=1001.2014.3001.5502">Ubuntu16.04下Git的安装</a>）,此处使用的是Raspbian的镜像（自带桌面和一些软件）<br>    1.2 格式化SD卡，将镜像写入，完成系统的安装<br>    1.3 开启SSH<br>        首先在根目录下新建SSH文件，用于远程登录，然后就把SD卡插到树莓派上；<br>        第一次需要用网线连接树莓派和电脑，使其处于同一网段下，然后通过PuTTY配置<br>        <strong>IP地址：raspberrypi.local 端口：22</strong><br>        连接成功后输入登录名pi和密码raspberry,接下来简单配置并连接与电脑相同的WiFi；<br>        可下载一个VNC Viewer用于连接到树莓派的桌面。</p>
 <p><strong>·2 OpenCV安装</strong><br>    安装并编译OpenCV的资源库<br>    注意接下来都要在cv的环境中操作</p>
 <h3 id="硬件的连接"><a href="#硬件的连接" class="headerlink" title="硬件的连接"></a>硬件的连接</h3><p><strong>主要器材：</strong><br>航模电池：给Arduino和电机驱动模块供电；<br>降压模块：用于降压保护Arduino和电机，并可以稳定电压；<br>电机驱动模块（L298N）：给电机供电，左侧两个电机的正极同时连接电机驱动模块上的一个out3，负极连接到out4，右侧连接out1、out2；<br>超声波模块：直接接在Arduino板块上，由Arduino供电并且由Arduino读取返回的信号值，即反馈小车当前的位置状态。</p>
 <p>Step1. 将树莓派与Arduino通过USB线（通用串行总线）建立连接。【Arduino在树莓派中是靠串口连接通信的，有<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jingxinbk/p/12408886.html">两种</a>：USB连接和GPIO通信(其中树莓派的RX引脚——Arduino的TX引脚，树莓派的TX引脚——Arduino的RX引脚，树莓派的GND引脚——Arduino的GND引脚)】<br>Step2. 在树莓派终端输入ls &#x2F;dev&#x2F;tty*查看两者连接端口的名字，若是出现ttyACM0则二者成功建立通信。<br>Step3. 编写树莓派与Arduino之间通信的代码</p>
@@ -632,7 +624,7 @@ void loop<span class="token punctuation">(</span><span class="token punctuation"
 <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;   </span>
 </code></pre>
 <p><img src="/images/cv1.png" alt="硬件连接图"></p>
-<h3 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h3><p>RGB模型：R-红色、G-绿色、B-蓝色；(0,0,0)表示黑色、(255, 255, 255)表示白色。<br>HSV模型：色调（H:hue）—— 0°<del>360°，以逆时针计算，红色为0°，绿色为120°，蓝色为240°<br>        饱和度（S:saturation）—— 0.0</del>1.0<br>        亮度（V:value）—— 0.0(黑色)～1.0(白色)</p>
+<h3 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h3><p>RGB模型：R-红色、G-绿色、B-蓝色；(0,0,0)表示黑色、(255, 255, 255)表示白色。<br>HSV模型：色调（H:hue）—— 0°(以度为计量单位) ~ 360°(0~2π)，从逆时针开始计算，红色为0°，绿色为120°，蓝色为240°<br>        饱和度（S:saturation）—— 0.0 ~ 1.0<br>        亮度（V:value）—— 0.0(黑色)～1.0(白色)</p>
 <p><img src="/images/Picture1.png"></p>
 <p>So, <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33759946/article/details/90295377?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_aa&utm_relevant_index=5">为什么</a>要采用HSV空间的色域？</p>
 <p><a target="_blank" rel="noopener" href="https://math.hws.edu/graphicsbook/demos/c2/rgb-hsv.html">RGB&#x2F;HSV Color Demo</a></p>
@@ -776,14 +768,20 @@ while<span class="token punctuation">(</span>1<span class="token punctuation">)<
 float cm<span class="token punctuation">;</span> //距离变量
 float temp<span class="token punctuation">;</span>  
 int flag<span class="token punctuation">;</span>
-void setup<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;  </span>
+void setup<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; </span>
+
   Serial.begin<span class="token punctuation">(</span>9600<span class="token punctuation">)</span><span class="token punctuation">;</span>
    //测速引脚初始化
   while<span class="token punctuation">(</span>Serial.available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> Serial.read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token string">"start"</span><span class="token punctuation">)</span>
+
   <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+
     delay<span class="token punctuation">(</span>100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
   <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
   Serial.print<span class="token punctuation">(</span><span class="token string">"wheels on"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     //串口初始化
 
