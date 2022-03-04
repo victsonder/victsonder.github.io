@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Programming</title>
+      <link href="/2022/03/04/Programming/"/>
+      <url>/2022/03/04/Programming/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>English</title>
+      <link href="/2022/03/04/English/"/>
+      <url>/2022/03/04/English/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 英语学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>基于 Raspberry Pi+OpenCV+Arduino 的智能小车</title>
       <link href="/2022/03/03/%E5%9F%BA%E4%BA%8E%20Raspberry%20Pi+OpenCV+Arduino%20%E7%9A%84%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6/"/>
       <url>/2022/03/03/%E5%9F%BA%E4%BA%8E%20Raspberry%20Pi+OpenCV+Arduino%20%E7%9A%84%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6/</url>
@@ -13,14 +63,14 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 机器人 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 学习 </tag>
+            <tag> 机器人 </tag>
             
         </tags>
       
