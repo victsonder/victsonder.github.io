@@ -590,13 +590,13 @@
 number <span class="token operator">=</span> len<span class="token punctuation">(</span>open<span class="token punctuation">(</span>file_path<span class="token punctuation">)</span>.readlines<span class="token punctuation">(</span><span class="token punctuation">))</span>
 print<span class="token punctuation">(</span><span class="token string">"共有%d行"</span>%number<span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/.io//zero.png"><br><strong>Linux命令</strong></p>
+<p><img src="/images/zero.png"><br><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">wc</span> hightemp.txt   <span class="token comment" spellcheck="true"># 显示行数 字数 字节数</span>
 $ <span class="token function">wc</span> -l hightemp.txt  <span class="token comment" spellcheck="true"># 只显示行数</span>
 $ <span class="token function">wc</span> -w hightemp.txt  <span class="token comment" spellcheck="true"># 只显示字数</span>
 $ <span class="token function">wc</span> -c hightemp.txt  <span class="token comment" spellcheck="true"># 只显示字节数</span>
 </code></pre>
-<p><img src="/images/cv.png"></p>
+<p><img src="/images/00.png"></p>
 <h2 id="1-把制表符换成空格"><a href="#1-把制表符换成空格" class="headerlink" title="1 把制表符换成空格"></a>1 把制表符换成空格</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">f <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"hightemp.txt"</span>,encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
 f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"hightemp1.txt"</span>,<span class="token string">'w'</span><span class="token punctuation">)</span>
@@ -608,12 +608,12 @@ readline <span class="token operator">=</span> f.readlines<span class="token pun
     f1.write<span class="token punctuation">(</span>line<span class="token punctuation">)</span>
 f1.close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/.io//1.png"><br><strong>Linux命令</strong></p>
+<p><img src="/images/1.png"><br><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">sed</span> <span class="token string">'s/\t/ /g'</span> hightemp.txt  <span class="token comment" spellcheck="true"># 'g' command means "Copy hold space to pattern space".</span>
 $ <span class="token function">cat</span> hightemp.txt <span class="token operator">|</span> <span class="token function">tr</span> <span class="token string">"\t"</span> <span class="token string">" "</span>
 $ <span class="token function">expand</span> hightemp.txt
 </code></pre>
-<p><img src="/.io//11.png"></p>
+<p><img src="/images/11.png"></p>
 <h2 id="2-将文件的第一列保存在co11-txt中，第二列保存在co12-txt中"><a href="#2-将文件的第一列保存在co11-txt中，第二列保存在co12-txt中" class="headerlink" title="2 将文件的第一列保存在co11.txt中，第二列保存在co12.txt中"></a>2 将文件的第一列保存在co11.txt中，第二列保存在co12.txt中</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">f<span class="token operator">=</span>open<span class="token punctuation">(</span><span class="token string">'hightemp.txt'</span>,encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
 f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"co11.txt"</span>,<span class="token string">'w'</span><span class="token punctuation">)</span>
@@ -650,11 +650,11 @@ f.close<span class="token punctuation">(</span><span class="token punctuation">)
         f1.write<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span>
 f1.close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/.io//2.png"><br><strong>Linux命令</strong></p>
+<p><img src="/images/2.png"><br><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">cut</span> -f 1 hightemp.txt <span class="token operator">></span> co11.txt
 $ <span class="token function">cut</span> -f 2 hightemp.txt <span class="token operator">></span> co12.txt
 </code></pre>
-<p><img src="/.io//22.png"></p>
+<p><img src="/images/22.png"></p>
 <h2 id="3-将co11-txt和co12-txt结合"><a href="#3-将co11-txt和co12-txt结合" class="headerlink" title="3 将co11.txt和co12.txt结合"></a>3 将co11.txt和co12.txt结合</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">f1 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"co11.txt"</span>,encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
 f2 <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">"co12.txt"</span>,encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">)</span>
@@ -670,10 +670,10 @@ f.write<span class="token punctuation">(</span><span class="token string">'\n'</
     f.write<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
 f.close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/.io//3.png"><br><strong>Linux命令</strong></p>
+<p><img src="/images/3.png"><br><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">paste</span> co11.txt -sd <span class="token string">'\n'</span> co12.txt
 </code></pre>
-<p><img src="/.io//33.png"></p>
+<p><img src="/images/33.png"></p>
 <h2 id="4-从头开始输出N行"><a href="#4-从头开始输出N行" class="headerlink" title="4 从头开始输出N行"></a>4 从头开始输出N行</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">count<span class="token operator">=</span>int<span class="token punctuation">(</span>input<span class="token punctuation">(</span><span class="token string">"从头输入行数："</span><span class="token punctuation">))</span>
 number<span class="token operator">=</span>0
@@ -702,7 +702,7 @@ number<span class="token operator">=</span>length-count
 <p><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">tail</span> -n 5 hightemp.txt
 </code></pre>
-<p><img src="/.io//45.png"></p>
+<p><img src="/images/45.png"></p>
 <h2 id="6-把文件分为N块"><a href="#6-把文件分为N块" class="headerlink" title="6 把文件分为N块"></a>6 把文件分为N块</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">def divide<span class="token punctuation">(</span>list1, num<span class="token punctuation">)</span>:
     result <span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">#[]*num</span>
@@ -727,7 +727,7 @@ number<span class="token operator">=</span>length-count
 <p><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">split</span> -l 8 hightemp.txt 
 </code></pre>
-<p><img src="/.io//linux/6.png"></p>
+<p><img src="/images/6.png"></p>
 <h2 id="7-输出第一列中不同字符串的集合"><a href="#7-输出第一列中不同字符串的集合" class="headerlink" title="7 输出第一列中不同字符串的集合"></a>7 输出第一列中不同字符串的集合</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">from pypinyin <span class="token function">import</span> lazy_pinyin
 list<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
@@ -744,12 +744,12 @@ f.close<span class="token punctuation">(</span><span class="token punctuation">)
 list1.sort<span class="token punctuation">(</span>key<span class="token operator">=</span>lambda char: lazy_pinyin<span class="token punctuation">(</span>char<span class="token punctuation">)</span><span class="token punctuation">[</span>0<span class="token punctuation">]</span><span class="token punctuation">[</span>0<span class="token punctuation">]</span><span class="token punctuation">)</span>
 print<span class="token punctuation">(</span><span class="token punctuation">[</span>lazy_pinyin<span class="token punctuation">(</span>char<span class="token punctuation">)</span> <span class="token keyword">for</span> char <span class="token keyword">in</span> list1<span class="token punctuation">]</span><span class="token punctuation">)</span>
 print<span class="token punctuation">(</span>list1<span class="token punctuation">)</span>
-<span class="token operator">!</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>/source/linux/7.png<span class="token punctuation">)</span>
+<span class="token operator">!</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>/images/7.png<span class="token punctuation">)</span>
 </code></pre>
 <p><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">sort</span> -u co11.txt
 </code></pre>
-<p><img src="/.io//linux/77.png"></p>
+<p><img src="/images/77.png"></p>
 <h2 id="8-将各行以第三项的数值从高到低进行排序"><a href="#8-将各行以第三项的数值从高到低进行排序" class="headerlink" title="8 将各行以第三项的数值从高到低进行排序"></a>8 将各行以第三项的数值从高到低进行排序</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">with open<span class="token punctuation">(</span><span class="token string">'hightemp.txt'</span><span class="token punctuation">)</span> as f:
     l <span class="token operator">=</span> sorted<span class="token punctuation">(</span>f,key<span class="token operator">=</span>lambda x:x.split<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>2<span class="token punctuation">]</span>,reverse<span class="token operator">=</span>True<span class="token punctuation">)</span>
@@ -759,7 +759,7 @@ print<span class="token punctuation">(</span>list1<span class="token punctuation
 <p><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">sort</span> -rn -k3 hightemp.txt
 </code></pre>
-<p><img src="/.io//linux/9.png"></p>
+<p><img src="/images/9.png"></p>
 <h2 id="9-求各行第一项字符串的频率，并按出现频率从高到低排列"><a href="#9-求各行第一项字符串的频率，并按出现频率从高到低排列" class="headerlink" title="9 求各行第一项字符串的频率，并按出现频率从高到低排列"></a>9 求各行第一项字符串的频率，并按出现频率从高到低排列</h2><p><strong>python</strong></p>
 <pre class=" language-bash"><code class="language-bash">list1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 dict1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -781,7 +781,7 @@ dict1 <span class="token operator">=</span> sorted<span class="token punctuation
 <p><strong>Linux命令</strong></p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">cut</span> -f 1 hightemp.txt <span class="token operator">|</span> <span class="token function">sort</span> -rn <span class="token operator">|</span> <span class="token function">uniq</span> -c <span class="token operator">|</span> <span class="token function">sort</span> -rn -k1
 </code></pre>
-<p><img src="/.io//linux/99.png"></p>
+<p><img src="/images/99.png"></p>
 <p><strong>Others….</strong><br>大于号&gt;: 将产生的内容（比如日志）输出到某个文件<br>小于号&lt;: 使用某个文件的内容作为标准输入</p>
 
                 
