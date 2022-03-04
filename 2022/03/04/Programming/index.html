@@ -585,7 +585,156 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="一-关于getline-和cin-gt-gt-同时使用的情况："><a href="#一-关于getline-和cin-gt-gt-同时使用的情况：" class="headerlink" title="一.关于getline()和cin&gt;&gt;同时使用的情况："></a>一.关于getline()和cin&gt;&gt;同时使用的情况：</h2><p><strong>cin&gt;&gt;与getline的工作方式</strong><br>流提取运算符根据它后面的变量类型读取数据，从非空白符号开始，遇到Enter、Space、Tab键时结束。<br>getline函数从istream中读取一行数据，当遇到“\n”时结束返回。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
+<span class="token comment" spellcheck="true">#include&lt;string></span>
+using namespace std<span class="token punctuation">;</span>
+
+int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    int a<span class="token punctuation">;</span>
+    string b<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> b<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+output：
+请输入整数：
+10
+请输入字符串：
+整数：10
+字符串：
+</code></pre>
+<p>造成程序<strong>错误结果的原因</strong>是，用户输入完整数后按回车结束输入，把“\n”留在了输入流里，这样换行符就被getline读取到，getline遇到换行符结束返回。</p>
+<p>&#x3D;&#x3D;解决的办法是手动清除换行符，在cin&gt;&gt;后加上 cin.ignore();&#x3D;&#x3D;</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
+<span class="token comment" spellcheck="true">#include&lt;string></span>
+using namespace std<span class="token punctuation">;</span>
+
+int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    int a<span class="token punctuation">;</span>
+    string b<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>
+    cin.ignore<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> b<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+output：
+请输入整数：
+10
+请输入字符串：
+aabb
+整数：10
+字符串：aabb
+</code></pre>
+<p>因此在使用getline函数之前要注意，输入流中是否有可能会有换行符，如果有则使用cin.ignore清除。<br>&#x3D;&#x3D;也可以重新定义一个字符串c,getline(cin,c)&#x3D;&#x3D;</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
+<span class="token comment" spellcheck="true">#include&lt;string></span>
+using namespace std<span class="token punctuation">;</span>
+
+int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    int a<span class="token punctuation">;</span>
+    string b,c<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>    
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    getline<span class="token punctuation">(</span>cin, c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> c<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="二"><a href="#二" class="headerlink" title="二."></a>二.</h2><p>关于voidvoid * fun( ) ; &#x2F;&#x2F;声明一个返回值是任意类型的指针的函数fun()<br>void vfun( ) ; &#x2F;&#x2F;声明一个没有返回值的函数vfun()<br>void (*)( )  这是一种变量类型，（函数指针）可用来定义函数指针变量，<br>如：void (*pfun)( ) ; &#x2F;&#x2F;声明一个函数指针变量pfun，该类型函数就是void vfun( ) 这种类型，pfun可以指向这类函数，如：pfun&#x3D;vfun ;</p>
+<p><strong>指针函数</strong>是指带指针的函数，即本质是一个函数，函数返回类型是某一类型的指针(地址)，因此返回值必须赋给同类型的指针变量int* f(x,y);<br><strong>函数指针</strong>是指向函数的指针变量，即本质是一个指针变量int （*f）(int x);f&#x3D;func;&#x2F;&#x2F;将func函数的首地址赋给指针f</p>
+<p>&#x3D;&#x3D;1.C++ 全局变量不明确与 using namespace std 冲突&#x3D;&#x3D;</p>
+<pre class=" language-bash"><code class="language-bash">//VS2019
+<span class="token comment" spellcheck="true">#include&lt;iostream></span>
+using namespace std<span class="token punctuation">;</span>
+int N<span class="token punctuation">;</span>
+int count <span class="token operator">=</span> 0<span class="token punctuation">;</span>
+void Process<span class="token punctuation">(</span>char a, int k, int step<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    int x, y<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">==</span> N * N<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>step <span class="token operator">></span> count<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            count <span class="token operator">=</span> step<span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">..</span>.
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200520163144894.PNG" alt="在这里插入图片描述"><br><code>reasons:</code><br>std命名空间里有std::count，因此与全局变量count冲突<br><code>solutions</code></p>
+<ol>
+<li>将全局变量count改为其他名称，如cnt</li>
+<li>使用count的地方改为::count</li>
+<li>不要使用using namespace std  <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?src=11&timestamp=1589963866&ver=2349&signature=Tfz56EnYVSz79Kg1o6Js1vdyKa2NSrpONvyiqw6sXJ8cXEI6S8meSqrxNm4p23qDsUzzDX9ggZy5DiZ*IVkwZ2fvMPHJGe610myuIk1*8lt-79nyU*v6TJ4G*pl8Hbk6&new=1">为什么我不建议你用【using namespace std】</a>.</li>
+</ol>
+<p>&#x3D;&#x3D;2.表达式必须含有常量值&#x3D;&#x3D;</p>
+<pre class=" language-bash"><code class="language-bash">int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    int N <span class="token operator">=</span> 4<span class="token punctuation">;</span>
+    char a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200520180240611.PNG" alt="在这里插入图片描述"><br><code>reasons:</code><br>c++中不允许使用变量作为数组的长度定义数组，必须为常量值，c++中所有的内存需求都是在程序执行前通过定义的常量来确定的。<br><code>solutions</code><br>动态分配内存</p>
+<p>1.一维数组申请</p>
+<pre class=" language-bash"><code class="language-bash">Type *p<span class="token operator">=</span>new Type<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">..</span>.
+delete<span class="token punctuation">[</span><span class="token punctuation">]</span> p<span class="token punctuation">;</span>
+
+//for example
+int num<span class="token punctuation">;</span>
+cin<span class="token operator">>></span>num<span class="token punctuation">;</span>
+int *a<span class="token operator">=</span>new int<span class="token punctuation">[</span>num<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">..</span>.
+delete<span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">;</span>
+ 
+</code></pre>
+<p>2.使用vector容器</p>
+<pre class=" language-bash"><code class="language-bash">int num<span class="token punctuation">;</span>
+cin <span class="token operator">>></span> num<span class="token punctuation">;</span>
+vector a<span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>3.二维数组申请</p>
+<pre class=" language-bash"><code class="language-bash">Type **p<span class="token operator">=</span>new Type*<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">;</span>
+//数组p<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+for<span class="token punctuation">(</span>int i<span class="token operator">=</span>0<span class="token punctuation">;</span>i<span class="token operator">&lt;</span>m<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>new Type<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+//for example
+<span class="token keyword">while</span> <span class="token punctuation">(</span>cin <span class="token operator">>></span> N<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    char** a <span class="token operator">=</span> new char* <span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>int i <span class="token operator">=</span> 0<span class="token punctuation">;</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
+        a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> new char<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>int i <span class="token operator">=</span> 0<span class="token punctuation">;</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>int j <span class="token operator">=</span> 0<span class="token punctuation">;</span>j <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++j<span class="token punctuation">)</span>
+            cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
                 
             </div>
             <hr/>
