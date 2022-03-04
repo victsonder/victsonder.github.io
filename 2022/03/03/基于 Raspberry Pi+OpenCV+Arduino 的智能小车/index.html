@@ -611,17 +611,17 @@ except:
 <pre><code>Arduino端：【注意：将程序烧到Arduino后一定要把USB拔掉插到树莓派上，不然会导致串口占用！！！】
 </code></pre>
 <pre class=" language-bash"><code class="language-bash">void setup<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   Serial.begin<span class="token punctuation">(</span>9600<span class="token punctuation">)</span><span class="token punctuation">;</span> // 波特率9600 bps
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 void loop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span> Serial.available<span class="token punctuation">(</span><span class="token punctuation">))</span>  <span class="token comment" spellcheck="true"># 判断串口缓存区是否有数据</span>
-    <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+    <span class="token punctuation">{</span>
       if<span class="token punctuation">(</span><span class="token string">'s'</span> <span class="token operator">==</span> Serial.read<span class="token punctuation">(</span><span class="token punctuation">))</span>
         Serial.println<span class="token punctuation">(</span><span class="token string">"Hello Raspberry,I am Arduino."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"># Arduino收到字符's'后，就向串口打印"Hello Raspberry,I am Arduino."</span>
-     <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;   </span>
+     <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>   
 </code></pre>
 <p><img src="/images/cv1.png" alt="硬件连接图"></p>
 <h3 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h3><p>RGB模型：R-红色、G-绿色、B-蓝色；(0,0,0)表示黑色、(255, 255, 255)表示白色。<br>HSV模型：色调（H:hue）—— 0°(以度为计量单位) ~ 360°(0~2π)，从逆时针开始计算，红色为0°，绿色为120°，蓝色为240°<br>        饱和度（S:saturation）—— 0.0 ~ 1.0<br>        亮度（V:value）—— 0.0(黑色)～1.0(白色)</p>
@@ -769,18 +769,13 @@ float cm<span class="token punctuation">;</span> //距离变量
 float temp<span class="token punctuation">;</span>  
 int flag<span class="token punctuation">;</span>
 void setup<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; </span>
-
+<span class="token punctuation">{</span> 
   Serial.begin<span class="token punctuation">(</span>9600<span class="token punctuation">)</span><span class="token punctuation">;</span>
    //测速引脚初始化
   while<span class="token punctuation">(</span>Serial.available<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> Serial.read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">!=</span><span class="token string">"start"</span><span class="token punctuation">)</span>
-
-  <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-
+  <span class="token punctuation">{</span>
     delay<span class="token punctuation">(</span>100<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+  <span class="token punctuation">}</span>
 
   Serial.print<span class="token punctuation">(</span><span class="token string">"wheels on"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     //串口初始化
@@ -794,17 +789,17 @@ void setup<span class="token punctuation">(</span><span class="token punctuation
   //超声波控制引脚初始化
   pinMode<span class="token punctuation">(</span>Trig, OUTPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
   pinMode<span class="token punctuation">(</span>Echo, INPUT<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 void Stop<span class="token punctuation">(</span>int t<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN3,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN4,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN1,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN2,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   delay<span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 void Go<span class="token punctuation">(</span><span class="token punctuation">)</span> //直线行驶
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   analogWrite<span class="token punctuation">(</span>PIN_PWML,100<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN3,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN4,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -812,9 +807,9 @@ void Go<span class="token punctuation">(</span><span class="token punctuation">)
   digitalWrite<span class="token punctuation">(</span>PIN_AIN1,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN2,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 void Right<span class="token punctuation">(</span>int t<span class="token punctuation">)</span>  //右转
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   analogWrite<span class="token punctuation">(</span>PIN_PWML,250<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN3,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN4,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -822,9 +817,9 @@ void Right<span class="token punctuation">(</span>int t<span class="token punctu
   digitalWrite<span class="token punctuation">(</span>PIN_AIN1,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN2,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   delay<span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 void Left<span class="token punctuation">(</span>int t<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
   analogWrite<span class="token punctuation">(</span>PIN_PWML,7<span class="token punctuation">)</span><span class="token punctuation">;</span>//
   digitalWrite<span class="token punctuation">(</span>PIN_AIN3,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN4,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -832,10 +827,10 @@ void Left<span class="token punctuation">(</span>int t<span class="token punctua
   digitalWrite<span class="token punctuation">(</span>PIN_AIN1,HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
   digitalWrite<span class="token punctuation">(</span>PIN_AIN2,LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
   delay<span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 
 void Wave<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">{</span>
    //给Trig发送一个低高低的短时间脉冲,触发测距
   digitalWrite<span class="token punctuation">(</span>Trig, LOW<span class="token punctuation">)</span><span class="token punctuation">;</span> //给Trig发送一个低电平
   delayMicroseconds<span class="token punctuation">(</span>2<span class="token punctuation">)</span><span class="token punctuation">;</span>    //等待 2微妙
@@ -853,37 +848,37 @@ void Wave<span class="token punctuation">(</span><span class="token punctuation"
   //Serial.print<span class="token punctuation">(</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>//串口输出距离换算成cm的结果
   //Serial.println<span class="token punctuation">(</span><span class="token string">"cm"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   //delay<span class="token punctuation">(</span>100<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-void loop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+<span class="token punctuation">}</span>
+void loop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     Wave<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     if<span class="token punctuation">(</span>cm<span class="token operator">&lt;=</span>40<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+    <span class="token punctuation">{</span>
         Stop<span class="token punctuation">(</span>100<span class="token punctuation">)</span><span class="token punctuation">;</span>
         flag<span class="token operator">=</span>0<span class="token punctuation">;</span>
          if<span class="token punctuation">(</span>Serial.available<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token operator">&amp;&amp;</span>  <span class="token string">'s'</span><span class="token operator">==</span>Serial.read<span class="token punctuation">(</span><span class="token punctuation">))</span>//一个s对应一个ready对应一次停止
-        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+        <span class="token punctuation">{</span>
             
             Serial.print<span class="token punctuation">(</span><span class="token string">"Ready"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>//停车并且就绪准备读取图片信息
             while<span class="token punctuation">(</span>Serial.read<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> flag<span class="token operator">!=</span>1<span class="token punctuation">)</span>//读取串口信息
-            <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+            <span class="token punctuation">{</span>
               delay<span class="token punctuation">(</span>100<span class="token punctuation">)</span><span class="token punctuation">;</span> 
               char temp<span class="token operator">=</span>Serial.read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
                   
               switch<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>//判断指令
-              <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
-               <span class="token keyword">case</span> <span class="token string">'m'</span><span class="token keyword">:</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;Serial.print("L");flag=1;Left(850);Stop(500);break;&amp;#125;</span>
-               <span class="token keyword">case</span> <span class="token string">'n'</span><span class="token keyword">:</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;Serial.print("R");flag=1;Right(700);Stop(500);break;&amp;#125;</span>
-               <span class="token keyword">case</span> <span class="token string">'o'</span><span class="token keyword">:</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;Serial.print("1");flag=1;Stop(1000);break;&amp;#125;</span>
-               <span class="token keyword">case</span> <span class="token string">'p'</span><span class="token keyword">:</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;Serial.print("2");flag=1;Stop(1000);break;&amp;#125;</span>
-               <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+              <span class="token punctuation">{</span>
+               <span class="token keyword">case</span> <span class="token string">'m'</span>:<span class="token punctuation">{</span>Serial.print<span class="token punctuation">(</span><span class="token string">"L"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>flag<span class="token operator">=</span>1<span class="token punctuation">;</span>Left<span class="token punctuation">(</span>850<span class="token punctuation">)</span><span class="token punctuation">;</span>Stop<span class="token punctuation">(</span>500<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+               <span class="token keyword">case</span> <span class="token string">'n'</span>:<span class="token punctuation">{</span>Serial.print<span class="token punctuation">(</span><span class="token string">"R"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>flag<span class="token operator">=</span>1<span class="token punctuation">;</span>Right<span class="token punctuation">(</span>700<span class="token punctuation">)</span><span class="token punctuation">;</span>Stop<span class="token punctuation">(</span>500<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+               <span class="token keyword">case</span> <span class="token string">'o'</span>:<span class="token punctuation">{</span>Serial.print<span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>flag<span class="token operator">=</span>1<span class="token punctuation">;</span>Stop<span class="token punctuation">(</span>1000<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+               <span class="token keyword">case</span> <span class="token string">'p'</span>:<span class="token punctuation">{</span>Serial.print<span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>flag<span class="token operator">=</span>1<span class="token punctuation">;</span>Stop<span class="token punctuation">(</span>1000<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">break</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+               <span class="token punctuation">}</span>
                //Serial.flush<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
-       <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;     </span>
+            <span class="token punctuation">}</span>
+       <span class="token punctuation">}</span>     
         Wave<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>//继续进行超声波检测
-    <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+    <span class="token punctuation">}</span>
     <span class="token keyword">else</span>
       Go<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
                 
