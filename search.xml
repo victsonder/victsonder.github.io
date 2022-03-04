@@ -4,7 +4,107 @@
   
     
     <entry>
-      <title>Programming</title>
+      <title>操作系统——Linux常见命令</title>
+      <link href="/2022/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
+      <url>/2022/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试开发学习记录3</title>
+      <link href="/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%953/"/>
+      <url>/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%953/</url>
+      
+        <content type="html"><![CDATA[<h1 id="selenium-python实现web自动化测试"><a href="#selenium-python实现web自动化测试" class="headerlink" title="selenium+python实现web自动化测试"></a>selenium+python实现web自动化测试</h1><p>难点：如何准确快速地选择到想要的页面元素</p><p>使用webdriver控制浏览器</p><ol><li><p>自动化程序通过selenium客户端库构建一个http请求发给浏览器驱动，然后浏览器驱动再转发给浏览器，浏览器将网址打开然后把结果返回。</p></li><li><p>选择元素（方法：告诉浏览器要操作的界面元素是什么特征）</p><p>根据<strong>id属性</strong>选择元素  【id可以作为元素的编号，在HTML中标记元素】</p><p>根据<strong>class属性、tag名</strong>选择元素</p></li></ol><p>不仅 <u>WebDriver对象</u>有选择元素（整个web页面）的方法， <u>WebElement对象</u>也有选择元素（该元素的内部）的方法</p><ol start="3"><li><p>css selector 语法选择元素</p><p><code>#id值</code> <code>.class值</code></p><p>验证css表达式</p><p>父元素的第n个子节点  nth-child( )</p><p>父元素的倒数第n个子节点  nth-last-child( )</p><p>父元素的第几个某类型的子节点  nth-of-type( )</p><p>父元素的倒数第几个某类型的子节点  nth-last-of-type( )</p></li><li><p>在html语法中，frame 元素 或者iframe元素的内部 会包含一个 <strong>被嵌入的</strong> 另一份html文档。</p></li><li><p>使用ActionChains来模拟鼠标移动的操作</p></li><li><p>冻结界面</p></li><li><p>弹出对话框</p></li><li><p>弹出框处理——显示信息是否正确</p></li><li><p>Xpath  （区别于css的是xpath可以选择父节点）</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试开发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试开发学习记录2</title>
+      <link href="/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%952/"/>
+      <url>/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%952/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Jmeter和Postman的初步了解"><a href="#Jmeter和Postman的初步了解" class="headerlink" title="Jmeter和Postman的初步了解"></a>Jmeter和Postman的初步了解</h1><h2 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h2><h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><h2 id="两者之间的区别"><a href="#两者之间的区别" class="headerlink" title="两者之间的区别"></a>两者之间的区别</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试开发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试开发学习记录1</title>
+      <link href="/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/"/>
+      <url>/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</url>
+      
+        <content type="html"><![CDATA[<h1 id="《软件测试的艺术》阅读有感"><a href="#《软件测试的艺术》阅读有感" class="headerlink" title="《软件测试的艺术》阅读有感"></a>《软件测试的艺术》阅读有感</h1><p>假期阅读一本《软件测试的艺术》，收获颇多，因此记录下，用于之后多次翻阅。</p><p>书中将测试人员比作“医生”（当我们测试某个程序时，它就相当于是我们的病人），“破坏者”（相对于开发人员是创造者而言），<br>测试是软件开发中的“黑色艺术”，这些描写非常的形象，亦可作为守门员，质量的把关者。<br>在一个典型的编程项目中，软件测试或者系统测试大约会占用项目时间和超过50%的总成本（测试应该引起重视）。</p><h2 id="软件测试的心理学"><a href="#软件测试的心理学" class="headerlink" title="软件测试的心理学"></a>软件测试的心理学</h2><p>软件测试更适宜被视为试图发现程序中错误（假设其存在）的破坏性的过程，从破坏者的角度来考虑能否为程序增加一些<br>价值和可靠性。一个成功的测试用例，通过诱发程序发生错误，可以在这个方向上促进软件质量的改进。<br>当然，最终我们还是要通过软件测试来建立某种程度的信心：<strong>软件做了其应该做的，未做其不应该做的。</strong>但是通过对<br>错误的不断研究是实现这个目的的最佳途径。</p><h2 id="软件测试的经济学"><a href="#软件测试的经济学" class="headerlink" title="软件测试的经济学"></a>软件测试的经济学</h2><h2 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h2><h2 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h2><h2 id="软件测试7大原则"><a href="#软件测试7大原则" class="headerlink" title="软件测试7大原则"></a>软件测试7大原则</h2><h2 id="软件测试的流程"><a href="#软件测试的流程" class="headerlink" title="软件测试的流程"></a>软件测试的流程</h2><pre class=" language-bash"><code class="language-bash">Step1. 发现bugStep2. 帮助开发人员定位Step3. 提交bug单bug单：1.项目-模块-问题概述       2.搭建测试环境并测试       3.设计文件版本       4.场景描述       5.复现方法       6.代码截图，仿真截图</code></pre><h2 id="测试用例的设计"><a href="#测试用例的设计" class="headerlink" title="测试用例的设计"></a>测试用例的设计</h2><h2 id="常见的测试"><a href="#常见的测试" class="headerlink" title="常见的测试"></a>常见的测试</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试开发 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C++知识点记录</title>
       <link href="/2022/03/04/Programming/"/>
       <url>/2022/03/04/Programming/</url>
       
@@ -29,7 +129,7 @@
     
     
     <entry>
-      <title>English</title>
+      <title>外刊阅读</title>
       <link href="/2022/03/04/English/"/>
       <url>/2022/03/04/English/</url>
       

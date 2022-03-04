@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C++知识点记录, 一直努力就很好...">
+    <meta name="keywords" content="操作系统——Linux常见命令, 一直努力就很好...">
     <meta name="description" content="梦想再大都不嫌大，追梦的人再小都不嫌小！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>C++知识点记录 | 一直努力就很好...</title>
+    <title>操作系统——Linux常见命令 | 一直努力就很好...</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -418,12 +418,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">C++知识点记录</h1>
+                    <h1 class="description center-align post-title">操作系统——Linux常见命令</h1>
                 </div>
             </div>
         </div>
@@ -585,153 +585,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一-关于getline-和cin-gt-gt-同时使用的情况："><a href="#一-关于getline-和cin-gt-gt-同时使用的情况：" class="headerlink" title="一.关于getline()和cin&gt;&gt;同时使用的情况："></a>一.关于getline()和cin&gt;&gt;同时使用的情况：</h2><p><strong>cin&gt;&gt;与getline的工作方式</strong><br>流提取运算符根据它后面的变量类型读取数据，从非空白符号开始，遇到Enter、Space、Tab键时结束。<br>getline函数从istream中读取一行数据，当遇到“\n”时结束返回。</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
-<span class="token comment" spellcheck="true">#include&lt;string></span>
-using namespace std<span class="token punctuation">;</span>
-
-int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    int a<span class="token punctuation">;</span>
-    string b<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> b<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-output：
-请输入整数：
-10
-请输入字符串：
-整数：10
-字符串：
-</code></pre>
-<p>造成程序<strong>错误结果的原因</strong>是，用户输入完整数后按回车结束输入，把“\n”留在了输入流里，这样换行符就被getline读取到，getline遇到换行符结束返回。</p>
-<p><strong>解决的办法是手动清除换行符，在cin&gt;&gt;后加上 cin.ignore();</strong></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
-<span class="token comment" spellcheck="true">#include&lt;string></span>
-using namespace std<span class="token punctuation">;</span>
-
-int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    int a<span class="token punctuation">;</span>
-    string b<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>
-    cin.ignore<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> b<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-output：
-请输入整数：
-10
-请输入字符串：
-aabb
-整数：10
-字符串：aabb
-</code></pre>
-<p>因此在使用getline函数之前要注意，输入流中是否有可能会有换行符，如果有则使用cin.ignore清除。<br><strong>也可以重新定义一个字符串c,getline(cin,c)</strong></p>
-<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#include&lt;iostream></span>
-<span class="token comment" spellcheck="true">#include&lt;string></span>
-using namespace std<span class="token punctuation">;</span>
-
-int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    int a<span class="token punctuation">;</span>
-    string b,c<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入整数："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> a<span class="token punctuation">;</span>    
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"请输入字符串："</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    getline<span class="token punctuation">(</span>cin, b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    getline<span class="token punctuation">(</span>cin, c<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"整数："</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"字符串："</span> <span class="token operator">&lt;&lt;</span> c<span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h2 id="二"><a href="#二" class="headerlink" title="二."></a>二.</h2><p>关于voidvoid * fun( ) ; &#x2F;&#x2F;声明一个返回值是任意类型的指针的函数fun()<br>void vfun( ) ; &#x2F;&#x2F;声明一个没有返回值的函数vfun()<br>void (*)( )  这是一种变量类型，（函数指针）可用来定义函数指针变量，<br>如：void (*pfun)( ) ; &#x2F;&#x2F;声明一个函数指针变量pfun，该类型函数就是void vfun( ) 这种类型，pfun可以指向这类函数，如：pfun&#x3D;vfun ;</p>
-<p><strong>指针函数</strong>是指带指针的函数，即本质是一个函数，函数返回类型是某一类型的指针(地址)，因此返回值必须赋给同类型的指针变量int* f(x,y);<br><strong>函数指针</strong>是指向函数的指针变量，即本质是一个指针变量int （*f）(int x);f&#x3D;func;&#x2F;&#x2F;将func函数的首地址赋给指针f</p>
-<p><strong>1.C++ 全局变量不明确与 using namespace std 冲突</strong></p>
-<pre class=" language-bash"><code class="language-bash">//VS2019
-<span class="token comment" spellcheck="true">#include&lt;iostream></span>
-using namespace std<span class="token punctuation">;</span>
-int N<span class="token punctuation">;</span>
-int count <span class="token operator">=</span> 0<span class="token punctuation">;</span>
-void Process<span class="token punctuation">(</span>char a, int k, int step<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    int x, y<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">==</span> N * N<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>step <span class="token operator">></span> count<span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            count <span class="token operator">=</span> step<span class="token punctuation">;</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token punctuation">..</span>.
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="https://img-blog.csdnimg.cn/20200520163144894.PNG"><br><code>reasons:</code><br>std命名空间里有std::count，因此与全局变量count冲突<br><code>solutions</code></p>
-<ol>
-<li>将全局变量count改为其他名称，如cnt</li>
-<li>使用count的地方改为::count</li>
-<li>不要使用using namespace std  <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?src=11&timestamp=1589963866&ver=2349&signature=Tfz56EnYVSz79Kg1o6Js1vdyKa2NSrpONvyiqw6sXJ8cXEI6S8meSqrxNm4p23qDsUzzDX9ggZy5DiZ*IVkwZ2fvMPHJGe610myuIk1*8lt-79nyU*v6TJ4G*pl8Hbk6&new=1">为什么我不建议你用【using namespace std】</a>.</li>
-</ol>
-<p><strong>2.表达式必须含有常量值</strong></p>
-<pre class=" language-bash"><code class="language-bash">int main<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    int N <span class="token operator">=</span> 4<span class="token punctuation">;</span>
-    char a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="https://img-blog.csdnimg.cn/20200520180240611.PNG"><br><code>reasons:</code><br>c++中不允许使用变量作为数组的长度定义数组，必须为常量值，c++中所有的内存需求都是在程序执行前通过定义的常量来确定的。<br><code>solutions</code><br>动态分配内存</p>
-<p>1.一维数组申请</p>
-<pre class=" language-bash"><code class="language-bash">Type *p<span class="token operator">=</span>new Type<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">..</span>.
-delete<span class="token punctuation">[</span><span class="token punctuation">]</span> p<span class="token punctuation">;</span>
-
-//for example
-int num<span class="token punctuation">;</span>
-cin<span class="token operator">>></span>num<span class="token punctuation">;</span>
-int *a<span class="token operator">=</span>new int<span class="token punctuation">[</span>num<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">..</span>.
-delete<span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">;</span>
- 
-</code></pre>
-<p>2.使用vector容器</p>
-<pre class=" language-bash"><code class="language-bash">int num<span class="token punctuation">;</span>
-cin <span class="token operator">>></span> num<span class="token punctuation">;</span>
-vector a<span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>3.二维数组申请</p>
-<pre class=" language-bash"><code class="language-bash">Type **p<span class="token operator">=</span>new Type*<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">;</span>
-//数组p<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-for<span class="token punctuation">(</span>int i<span class="token operator">=</span>0<span class="token punctuation">;</span>i<span class="token operator">&lt;</span>m<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>new Type<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-//for example
-<span class="token keyword">while</span> <span class="token punctuation">(</span>cin <span class="token operator">>></span> N<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    char** a <span class="token operator">=</span> new char* <span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>int i <span class="token operator">=</span> 0<span class="token punctuation">;</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
-        a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> new char<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span>int i <span class="token operator">=</span> 0<span class="token punctuation">;</span>i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++i<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>int j <span class="token operator">=</span> 0<span class="token punctuation">;</span>j <span class="token operator">&lt;</span> N<span class="token punctuation">;</span>++j<span class="token punctuation">)</span>
-            cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+                <hr>
 
                 
             </div>
@@ -758,7 +612,7 @@ for<span class="token punctuation">(</span>int i<span class="token operator">=</
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://victsonder.github.io/2022/03/04/Programming/">http://victsonder.github.io/2022/03/04/Programming/</a>
+                    <a href="http://victsonder.github.io/2022/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">http://victsonder.github.io/2022/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -967,17 +821,18 @@ for<span class="token punctuation">(</span>int i<span class="token operator">=</
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">
+                <a href="/2022/03/04/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="测试开发学习记录1">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="操作系统——Linux常见命令">
                         
-                        <span class="card-title">测试开发学习记录1</span>
+                        <span class="card-title">操作系统——Linux常见命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -987,9 +842,59 @@ for<span class="token punctuation">(</span>int i<span class="token operator">=</
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B/" class="post-category">
+                                    编程
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">编程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/03/04/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%953/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="测试开发学习记录3">
+                        
+                        <span class="card-title">测试开发学习记录3</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1007,55 +912,6 @@ for<span class="token punctuation">(</span>int i<span class="token operator">=</
                     
                     <a href="/tags/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91/">
                         <span class="chip bg-color">测试开发</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/03/04/English/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="外刊阅读">
-                        
-                        <span class="card-title">外刊阅读</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    英语学习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">英语学习</span>
                     </a>
                     
                 </div>
