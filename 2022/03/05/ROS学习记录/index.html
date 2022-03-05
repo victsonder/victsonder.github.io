@@ -130,17 +130,6 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="" class="waves-effect waves-light">
 
       
@@ -279,17 +268,6 @@
 			    <i class="fa-fw fas fa-comments"></i>
 			
 			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -588,7 +566,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    500
+                    506
                 </div>
                 
 
@@ -616,7 +594,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>我是搭环境的小能手<del>（实际是电脑配置低，总是会崩，用以记录，下次安装更快些</del>）</p>
-<h1 id="1-安装与卸载"><a href="#1-安装与卸载" class="headerlink" title="1 安装与卸载"></a>1 安装与卸载</h1><h2 id="1-1-卸载"><a href="#1-1-卸载" class="headerlink" title="1.1 卸载"></a>1.1 卸载</h2><ol>
+<h1 id="安装与卸载"><a href="#安装与卸载" class="headerlink" title="安装与卸载"></a>安装与卸载</h1><h2 id="1-1-卸载"><a href="#1-1-卸载" class="headerlink" title="1.1 卸载"></a>1.1 卸载</h2><ol>
 <li><strong>卸载</strong><br> 常见的两种卸载方法 <a target="_blank" rel="noopener" href="https://blog.csdn.net/jacka654321/article/details/83037485">卸载方法</a>.</li>
 </ol>
 <p><strong>注意坑</strong>：（1）若是使用</p>
@@ -647,14 +625,15 @@
 <p>Unable to locate package ros-melodic-humanoid-nav-msgs<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/63192342/unable-to-locate-package-ros-melodic-humanoid-nav-msgs">解决办法</a>.</p>
 </blockquote>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/eefresher/article/details/99738446">解压</a>.<br> <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3bf0ebc895f4">mkdir 与mkdir -p 区别</a>.</p>
-<h1 id="2-NAO相关环境安装"><a href="#2-NAO相关环境安装" class="headerlink" title="2 NAO相关环境安装"></a>2 NAO相关环境安装</h1><p> <a target="_blank" rel="noopener" href="https://www.softbankrobotics.com/emea/en/support/nao-6/downloads-softwares">相关软件，SDK链接</a>.<br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/li528405176/article/details/85267476">安装链接</a>.</p>
+<h1 id="NAO相关环境安装"><a href="#NAO相关环境安装" class="headerlink" title="NAO相关环境安装"></a>NAO相关环境安装</h1><p> <a target="_blank" rel="noopener" href="https://www.softbankrobotics.com/emea/en/support/nao-6/downloads-softwares">相关软件，SDK链接</a>.<br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/li528405176/article/details/85267476">安装链接</a>.</p>
 <blockquote>
 <p>若出现” ImportError:libboost_regex.so.1.55.0:cannot open shared object file: No such file or directory “（链接中的解决方法不够具体，可以 <a target="_blank" rel="noopener" href="https://kendemu.blogspot.com/2016/12/pynaoqi-sdk-214ubuntu-1604.html">参考</a> （科学上网）【就是下载并解压naoqi C++ SDK，然后将&#x2F;lib&#x2F;libboost_regex.so.1.55.0这个文件移动到】</p>
 </blockquote>
 <blockquote>
 <p>at &#x2F;opt&#x2F;ros&#x2F;melodic&#x2F;share&#x2F;catkin&#x2F;cmake&#x2F;catkinConfig.cmake:83 (find_package):<br>  Could not find a package configuration file provided by<br>  “camera_info_manager” with any of the following names:<br>    camera_info_managerConfig.cmake<br>    camera_info_manager-config.cmake<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45762949/article/details/108625672">解决办法</a>. sudo apt-get install ros-melodic-camera-info-manager</p>
 </blockquote>
-<p>在安装过程中，若是出现以下错误，则是因为没有安装相应的包，记得安装好了要在功能包的package.xml文件中。<br><img src="/images/error.png"><br>for example：我若是缺少naoqi_bridge_msgs这个安装包，就要先去找到相应的安装包下载安装(一般GitHub上都有，用git clone … 就可以下载了），然后添加在报错的功能包的package.xml文件中)<br><img src="/images/package.png"><br> 总算到可视化了ε&#x3D;(´ο｀*)))<br><img src="/images/rivz.png"><br>接下来就要连接到真实机器人上，并部署相关的程序~~</p>
+<p>在安装过程中，若是出现以下错误，则是因为没有安装相应的包，记得安装好了要在功能包的package.xml文件中。<br><img src="/images/error.png"><br>for example：我若是缺少naoqi_bridge_msgs这个安装包，就要先去找到相应的安装包下载安装(一般GitHub上都有，用git clone … 就可以下载了），然后添加在报错的功能包的package.xml文件中)<br><img src="/images/package.png"><br> 总算到可视化了ε&#x3D;(´ο｀*)))<br><img src="/images/rviz.png"><br>接下来就要连接到真实机器人上，并部署相关的程序~~</p>
+<p>p.s. <a target="_blank" rel="noopener" href="https://www.its203.com/article/weixin_44095441/88643752?2022-03-05">ROS中的CMakeLists.txt详解</a></p>
 
                 
             </div>
