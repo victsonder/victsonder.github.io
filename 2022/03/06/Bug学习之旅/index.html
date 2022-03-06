@@ -566,7 +566,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    899
+                    886
                 </div>
                 
 
@@ -596,7 +596,7 @@
                 <blockquote>
 <p>一个萝卜一个坑，踩一个坑学习一寸</p>
 </blockquote>
-<h1 id="Bug-1"><a href="#Bug-1" class="headerlink" title="Bug 1"></a>Bug 1</h1><h2 id="From"><a href="#From" class="headerlink" title="From"></a>From</h2><p>基于SSM框架的鲜花售卖平台</p>
+<h1 id="Bug1"><a href="#Bug1" class="headerlink" title="Bug1"></a>Bug1</h1><h2 id="From"><a href="#From" class="headerlink" title="From"></a>From</h2><p>基于SSM框架的鲜花售卖平台<br>common：存放公共的组件<br>controller层：控制层代码，只负责接收前端浏览器发送的请求和请求参数，调用service层获取业务逻辑加工处理后的数据<br>service层：业务层代码，分为service的接口（为了进行解耦操作，多实现，比较灵活）和实现类（用于实现定义的controller层的接口）<br>dao层：dao持久层代码<br>domain层：用于存放和表建立映射关系的实体类，操作实体类就相当于操作表（ORM思想），【小区实体类——对应数据库tb_community】<br>exception：全局异常处理器，捕获Exception类型的异常，并进行友好错误提示</p>
 <h2 id="详细描述："><a href="#详细描述：" class="headerlink" title="详细描述："></a>详细描述：</h2><p>Navicat可以正常连接MySQL，命令行下输入用户名和密码也可以正常登录，但是IDEA无法连接MySQL，出现以下错误。</p>
 <h2 id="截图："><a href="#截图：" class="headerlink" title="截图："></a>截图：</h2><p><img src="/images/bug1.png"></p>
 <h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>这里把我收集到的以及实践过的方法一一呈现，但最重要的还是要结合实际情况来分析！</p>
@@ -622,8 +622,8 @@ spring:
 <h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p><strong>XXXMapper.xml中SQL语句语法问题</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/liangllhahaha/article/details/89821006">ref</a></p>
 <h3 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h3><p>重装吧，不过我没试过，<a target="_blank" rel="noopener" href="https://blog.csdn.net/liangllhahaha/article/details/89508826">传送口</a></p>
 <p>小吐槽(ε&#x3D;(´ο｀*)))唉)：这个bug的解决大概花了一个下午左右，之前一直在走错路，网上有很多相似的bug，但是其解决方法不一定适合自己，还是要具体问题具体分析。差点就要卸载重装了，还是要多思考，并要夯实自己的基础！！！</p>
-<p>对于该web项目进行测试，模拟前端对后端发送请求。<br>common：存放公共的组件<br>controller层：控制层代码，只负责接收前端浏览器发送的请求和请求参数，调用service层获取业务逻辑加工处理后的数据<br>service层：业务层代码，分为service的接口（为了进行解耦操作，多实现，比较灵活）和实现类（用于实现定义的controller层的接口）<br>dao层：dao持久层代码<br>domain层：用于存放和表建立映射关系的实体类，操作实体类就相当于操作表（ORM思想），【小区实体类——对应数据库tb_community】<br>exception：全局异常处理器，捕获Exception类型的异常，并进行友好错误提示<br><strong>测试前端浏览器能否和controller层通信</strong><br><img src="/images/search.png"><br>利用post请求，可以看到接收数据成功，通信成功。</p>
-<h1 id="Bug-2"><a href="#Bug-2" class="headerlink" title="Bug 2"></a>Bug 2</h1>
+<p><strong>模拟前端对后端发送请求，测试前端浏览器能否和controller层通信</strong><br><img src="/images/search.png"><br>利用post请求，可以看到接收数据成功，通信成功。</p>
+<h1 id="Bug2"><a href="#Bug2" class="headerlink" title="Bug2"></a>Bug2</h1>
                 
             </div>
             <hr/>
@@ -1151,7 +1151,7 @@ spring:
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.1k</span>&nbsp;字
+                class="white-color">10.4k</span>&nbsp;字
             
             
             
