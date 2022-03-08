@@ -559,7 +559,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-07
+                    2022-03-08
                 </div>
                 
 
@@ -573,7 +573,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -604,7 +604,7 @@
 <h2 id="Jmeter"><a href="#Jmeter" class="headerlink" title="Jmeter"></a>Jmeter</h2><p>Web压力接口测试，利用测试片段。</p>
 <h2 id="GET-VS-POST"><a href="#GET-VS-POST" class="headerlink" title="GET VS POST"></a>GET VS POST</h2><p>GET请求的参数存放在URL中；(e.g. <a target="_blank" rel="noopener" href="http://www.bac.com/?id=123&amp;name=&quot;victsonder&quot;">www.bac.com?id=123&amp;name=&quot;victsonder&quot;</a>)<br>经常被用来获取数据，用参数来进行描述；<br>长度会有限制，比如IE浏览器对URL的最大限制为2083个字符；<br>为了节省时间和空间就直接走缓存，以便下次再访问.</p>
 <p>而POST请求的参数放在body中，以表单的方式传参；<br>提交数据，并对服务器做出一些变动；<br>无长度限制；<br>POST请求本质上具有破坏性；<br>不应该缓存.</p>
-<h2 id="cookie-VS-session-VS-token"><a href="#cookie-VS-session-VS-token" class="headerlink" title="cookie VS session VS token"></a>cookie VS session VS token</h2><p>cookies：<br>session：存储在服务器的内存中，因此服务器资源占用大；基于cookie进行用户识别，因此安全性较低（如果cookie被截获，就会导致跨站请求伪造的攻击）；扩展性不强，随着用户量的增加，系统使用了多服务器的负载均衡方案，session数据保存在单节点的内存中<br>token：</p>
+<h2 id="cookie-VS-session-VS-token"><a href="#cookie-VS-session-VS-token" class="headerlink" title="cookie VS session VS token"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010460625/article/details/109092777">cookie VS session VS token</a></h2><p>cookies：由服务器产生，存储在客户端<br>session：存储在服务器的内存中，因此服务器资源占用大；基于cookie进行用户识别(sessionId 会被存储到客户端的cookie 中)，因此安全性较低（如果cookie被截获，就会导致跨站请求伪造的攻击）；扩展性不强，随着用户量的增加，系统使用了多服务器的负载均衡方案，session数据保存在单节点的内存中<br>token：以Json的形式保存在客户端的,访问资源接口（API）时所需要的资源凭证</p>
 <blockquote>
 <p>在浏览器中输入URL后，what happened？<br>DNS域名解析——建立TCP连接——发送HTTP请求——服务器处理请求——服务器返回响应结果——关闭TCP连接——浏览器解析HTML——浏览器布局渲染</p>
 </blockquote>
@@ -1066,60 +1066,6 @@
 
 
     <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
